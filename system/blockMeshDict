@@ -1,0 +1,91 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1;
+
+*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+
+convertToMeters 1;
+
+vertices
+(
+    (-0.4  -0.4 0.0)   // 0 (chão frontal esquerdo)
+    ( 0.4  -0.4  0.0)   // 1 (chão frontal direito)
+    ( 0.4  0.4  0.0)   // 2 (chão traseiro direito)
+    (-0.4  0.4  0.0)   // 3 (chão traseiro esquerdo)
+    (-0.4  -0.4 0.06)   // 4 (teto frontal esquerdo)
+    ( 0.4  -0.4  0.06)   // 5 (teto frontal direito)
+    ( 0.4 0.4  0.06)   // 6 (teto traseiro direito)
+    (-0.4  0.4  0.06)   // 7 (teto traseiro esquerdo)
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (50 50 100) simpleGrading (1 1 1)
+);
+
+edges
+(
+);
+
+boundary
+(
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (0 1 2 3)  // Frente aberta (entrada de ar) // 0 1 2 3
+        );
+    }
+
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (4 5 6 7)  // Traseira aberta (saída de ar) // 4 5 6 7
+        );
+    }
+
+    openSides
+    {
+        type pressureInletOutletVelocity;  // Faces laterais abertas
+        faces
+        (
+            (0 1 4 5)  // Lateral direita // 0 1 4 5
+            (2 3 6 7)  // Lateral esquerda // 2 3 6 7
+            (1 2 5 6)  // Topo aberto // 1 2 5 6
+            (0 3 4 7)  // Chão fixo // 0 3 4 7
+        );
+    }
+);
+
+// ************************************************************************* //
