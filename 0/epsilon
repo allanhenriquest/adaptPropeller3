@@ -20,6 +20,7 @@ internalField   uniform 0.0495;
 
 boundaryField
 {
+ 
     //- Set patchGroups for constraint patches
     #includeEtc "caseDicts/setConstraintTypes"
 
@@ -41,7 +42,31 @@ boundaryField
         type            epsilonWallFunction;
         value           $internalField;
     }
+
+    Face_Up
+    {
+        type cyclicAMI;
+        neighbourPatch Face_Down;
+    }
+
+    Face_Down
+    {
+        type cyclicAMI;
+        neighbourPatch Face_Up;
+    }
+
+    Inner_Body
+    {
+        type zeroGradient;
+    }
+
+    helice3
+    {
+        type            epsilonWallFunction;
+        value           $internalField;
+    }
 }
+
 
 
 // ************************************************************************* //
