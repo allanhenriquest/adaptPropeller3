@@ -41,11 +41,30 @@ boundaryField
         type            noSlip;
     }
 
-    "helice3"
+    Face_Up
+    {
+        type cyclicAMI;
+        value uniform(0 0 0);
+    }
+
+    Face_Down
+    {
+        type cyclicAMI;
+        value uniform(0 0 0);
+    }
+
+    Inner_Body
+    {
+        type zeroGradient;
+    }
+
+    helice3
     {
         type            movingWallVelocity;
         value           uniform (0 0 0);
     }
+
+    
 }
 
 
