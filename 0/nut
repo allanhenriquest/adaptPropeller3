@@ -40,6 +40,30 @@ boundaryField
         type            nutkWallFunction;
         value           uniform 0;
     }
+
+    Face_Up
+    {
+        type cyclicAMI;
+        neighbourPatch Face_Down;
+    }
+
+    Face_Down
+    {
+        type cyclicAMI;
+        neighbourPatch Face_Up;
+    }
+
+    Inner_Body
+    {
+        type zeroGradient;
+    }
+
+    helice3
+    {
+        type            nutkWallFunction;
+        value           uniform 0;
+
+    }
 }
 
 
